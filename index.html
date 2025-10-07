@@ -2,105 +2,231 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>BINC International</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BINC – Formulierenportaal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+
   <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background-color: #1d1d1d;
-      color: #fff;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
-      padding: 2rem;
+    :root{
+      --bg:#0c0d10;
+      --panel:#16181d;
+      --panel-2:#1b1f26;
+      --border:#262b34;
+      --text:#f3f5f7;
+      --muted:#aeb6c4;
+      --accent:#c1b270; /* goudtint */
+      --accent-2:#e7dfb5;
+      --shadow: 0 18px 48px rgba(0,0,0,.45);
+      --radius: 18px;
     }
 
-    .container {
-      width: 100%;
-      max-width: 600px;
-      background: #2a2a2a;
-      border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-      padding: 2.5rem;
-      text-align: center;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background: radial-gradient(1200px 900px at 10% -10%, #111318 0%, #0c0d10 52%, #0a0b0e 100%);
+      color:var(--text); font:16px/1.5 'Poppins', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
     }
 
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 2.5rem;
-      color: #ffffff;
+    /* decoratieve glow */
+    .glow{
+      position:fixed; inset:auto -20% 60% auto; width:60vmax; height:60vmax;
+      background: radial-gradient(closest-side, rgba(193,178,112,.14), transparent 60%);
+      filter: blur(40px); pointer-events:none; z-index:0;
     }
 
-    .button {
-      display: block;
-      width: 93%;
-      padding: 1.2rem;
-      margin: 1.1rem 0; /* Hier vergroot voor meer ruimte */
-      background: linear-gradient(145deg, #333333, #1a1a1a);
-      color: #fff;
-      text-decoration: none;
-      border-radius: 16px;
-      font-weight: 600;
-      font-size: 1rem;
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.6);
-      transition: all 0.25s ease;
-      position: relative;
-      overflow: hidden;
+    .wrap{
+      position:relative; z-index:1;
+      max-width:1080px; margin:42px auto; padding:0 20px;
     }
 
-    .button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -75%;
-      width: 50%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.05);
-      transform: skewX(-25deg);
-      transition: left 0.4s ease;
+    /* header */
+    .header{
+      display:flex; align-items:center; gap:16px; margin-bottom:22px;
+    }
+    .logo{
+      width:64px; height:64px; border-radius:16px; display:grid; place-items:center;
+      background:#000; border:1.5px solid var(--border); box-shadow: inset 0 1px 0 rgba(255,255,255,.06), var(--shadow);
+      overflow:hidden;
+    }
+    .logo img{
+      width:70%; height:70%; object-fit:contain;
+      filter: brightness(0) invert(1); transition: transform .35s ease, filter .35s ease;
+    }
+    .logo:hover img{ transform:scale(1.08); filter: brightness(1.2) invert(1); }
+
+    .title h1{ font-size:1.55rem; letter-spacing:.2px; margin:0 0 4px 0; }
+    .title p{ margin:0; color:var(--muted); font-size:.95rem }
+
+    /* search */
+    .toolbar{ display:flex; gap:12px; align-items:center; margin:18px 0 8px }
+    .search{
+      position:relative; flex:1;
+    }
+    .search input{
+      width:100%; padding:12px 44px 12px 14px; border-radius:12px;
+      background:#0f1217; color:var(--text); border:1px solid var(--border);
+      outline:none; transition: box-shadow .18s, border-color .18s;
+    }
+    .search input::placeholder{ color:#6a7586 }
+    .search input:focus{ border-color:var(--accent); box-shadow:0 0 0 3px rgba(193,178,112,.22) }
+    .search .icon{
+      position:absolute; right:10px; top:50%; transform:translateY(-50%); font-size:18px; color:#8d98a9;
+      pointer-events:none;
     }
 
-    .button:hover::before {
-      left: 125%;
+    /* grid of apps */
+    .grid{
+      display:grid; gap:14px;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     }
 
-    .button:hover {
-      background: linear-gradient(145deg, #444444, #222222);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.7);
+    .app{
+      position:relative; isolation:isolate;
+      background:linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
+      border:1px solid var(--border); border-radius:var(--radius);
+      padding:16px; text-decoration:none; color:var(--text); overflow:hidden;
+      box-shadow: var(--shadow); transform: translateY(0);
+      transition: transform .12s ease, filter .18s ease, border-color .18s ease;
+      outline:none;
+    }
+    .app:before{
+      content:""; position:absolute; inset:-1px; border-radius:inherit; z-index:-1;
+      background:linear-gradient(135deg, rgba(193,178,112,.38), rgba(193,178,112,0) 40%, rgba(231,223,181,.15) 75%, rgba(193,178,112,0) 100%);
+      opacity:.25; transition:opacity .25s ease;
+    }
+    .app:hover{ transform: translateY(-2px); border-color:#323a46; filter:brightness(1.04) }
+    .app:focus-visible{ box-shadow:0 0 0 3px rgba(193,178,112,.32), var(--shadow); border-color:var(--accent) }
+    .app:hover:before{ opacity:.5 }
+
+    .app__title{ font-weight:700; margin:2px 0 6px 0; letter-spacing:.2px; }
+    .app__desc{ color:var(--muted); font-size:.92rem; margin:0 }
+
+    /* chip */
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:6px 10px; border-radius:999px; font-weight:600; font-size:.78rem;
+      color:#0e0e0e; background: linear-gradient(180deg, var(--accent-2), var(--accent));
+      border:1px solid rgba(0,0,0,.25); box-shadow: inset 0 1px 0 rgba(255,255,255,.35);
     }
 
-    @media (max-width: 500px) {
-      .container {
-        padding: 2rem 1.5rem;
-      }
+    .footer{
+      margin-top:18px; color:#8f99aa; font-size:.9rem; text-align:center;
+    }
 
-      h1 {
-        font-size: 1.6rem;
-      }
-
-      .button {
-        font-size: 0.95rem;
-        padding: 1rem;
-      }
+    /* reduce motion */
+    @media (prefers-reduced-motion: reduce){
+      .app, .logo img{ transition:none }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>BINC Formulierenportaal</h1>
-    <a class="button" href="https://golddry.netlify.app/" target="_blank">Gold Dry Bestelling</a>
-    <a class="button" href="https://bincinternational.fillout.com/cnsupplementsbestellingen" target="_blank">Clean Nutrition Bestelling</a>
-    <a class="button" href="https://bincinternational.fillout.com/feelsogood-bestellingen" target="_blank">FeelSoGood Bestelling</a>
-    <a class="button" href="https://glowing-rugelach-b32978.netlify.app" target="_blank">Bezoek Formulier</a>
-    <a class="button" href="https://activiteitenform.netlify.app/" target="_blank">Activiteiten Filialen</a>
-    <a class="button" href="https://bincinternational.fillout.com/promotiemateriaal" target="_blank">Promotie Materiaal</a>
-    <a class="button" href="https://charming-maamoul-8622c7.netlify.app/" target="_blank">ID Aanmaken</a>
-    <a class="button" href="https://silly-rabanadas-86bbc6.netlify.app/" target="_blank">Leads aanmaken</a>
-    <a class="button" href="https://drive.google.com/file/d/1Hk-b3HAL07Jdt0H2vuN3ZZZ7HPBchdlz/view" target="_blank">Gebruiksaanwijzing Appsheet</a>
-  </div>
+  <div class="glow" aria-hidden="true"></div>
+
+  <main class="wrap" role="main">
+    <header class="header" aria-label="BINC">
+      <div class="logo" aria-hidden="true">
+        <img src="https://raw.githubusercontent.com/Krijnvl/fotosbinc/9ede6fd134c428c18cd3f836197d8003d00a4675/BINC%20LOGO%20ICON%20BLACK.svg" alt="">
+      </div>
+      <div class="title">
+        <h1>BINC Formulierenportaal</h1>
+        <p>Handige snelkoppelingen naar bestellingen, bezoeken & meer.</p>
+      </div>
+    </header>
+
+    <div class="toolbar">
+      <div class="search" role="search">
+        <input id="q" type="search" placeholder="Zoek (bijv. ‘bestelling’, ‘bezoek’, ‘CN’)…" aria-label="Zoek">
+        <span class="icon">⌕</span>
+      </div>
+      <span class="chip" title="Tips">Tip: gebruik ↑/↓ + Enter</span>
+    </div>
+
+    <section class="grid" id="apps" aria-label="Snelkoppelingen">
+      <a class="app" href="https://golddry.netlify.app/" target="_blank" rel="noopener">
+        <div class="app__title">Gold Dry Bestelling</div>
+        <p class="app__desc">Plaats of beheer bestellingen voor Gold Dry.</p>
+      </a>
+
+      <a class="app" href="https://bincinternational.fillout.com/cnsupplementsbestellingen" target="_blank" rel="noopener">
+        <div class="app__title">Clean Nutrition Bestelling</div>
+        <p class="app__desc">CN-supplementen snel en duidelijk bestellen.</p>
+      </a>
+
+      <a class="app" href="https://bincinternational.fillout.com/feelsogood-bestellingen" target="_blank" rel="noopener">
+        <div class="app__title">FeelSoGood Bestelling</div>
+        <p class="app__desc">Bestellingen en varianten voor FeelSoGood.</p>
+      </a>
+
+      <a class="app" href="https://glowing-rugelach-b32978.netlify.app" target="_blank" rel="noopener">
+        <div class="app__title">Bezoek Formulier</div>
+        <p class="app__desc">Log je winkelbezoeken – gestroomlijnd & mobielproof.</p>
+      </a>
+
+      <a class="app" href="https://activiteitenform.netlify.app/" target="_blank" rel="noopener">
+        <div class="app__title">Activiteiten Filialen</div>
+        <p class="app__desc">Registreer promoties en lokale acties.</p>
+      </a>
+
+      <a class="app" href="https://bincinternational.fillout.com/promotiemateriaal" target="_blank" rel="noopener">
+        <div class="app__title">Promotie Materiaal</div>
+        <p class="app__desc">Vraag POS-materiaal aan in een paar klikken.</p>
+      </a>
+
+      <a class="app" href="https://charming-maamoul-8622c7.netlify.app/" target="_blank" rel="noopener">
+        <div class="app__title">ID Aanmaken</div>
+        <p class="app__desc">Genereer snel een BINC ID/badge.</p>
+      </a>
+
+      <a class="app" href="https://silly-rabanadas-86bbc6.netlify.app/" target="_blank" rel="noopener">
+        <div class="app__title">Leads aanmaken</div>
+        <p class="app__desc">Nieuwe leads noteren en doorzetten.</p>
+      </a>
+
+      <a class="app" href="https://drive.google.com/file/d/1Hk-b3HAL07Jdt0H2vuN3ZZZ7HPBchdlz/view" target="_blank" rel="noopener">
+        <div class="app__title">Gebruiksaanwijzing Appsheet</div>
+        <p class="app__desc">Handleiding en best practices.</p>
+      </a>
+    </section>
+
+    <p class="footer">© <span id="y"></span> BINC International</p>
+  </main>
+
+  <script>
+    // jaar
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // live zoeken
+    const q = document.getElementById('q');
+    const cards = Array.from(document.querySelectorAll('.app'));
+    q.addEventListener('input', () => {
+      const s = q.value.trim().toLowerCase();
+      cards.forEach(card => {
+        const t = card.innerText.toLowerCase();
+        card.style.display = t.includes(s) ? '' : 'none';
+      });
+    });
+
+    // keyboard navigatie: ↑/↓ en Enter
+    let focusIndex = -1;
+    function visibleCards(){ return cards.filter(c => c.style.display !== 'none'); }
+    document.addEventListener('keydown', (e)=>{
+      const list = visibleCards();
+      if(!list.length) return;
+
+      if(e.key === 'ArrowDown'){
+        e.preventDefault();
+        focusIndex = (focusIndex + 1) % list.length;
+        list[focusIndex].focus();
+      }else if(e.key === 'ArrowUp'){
+        e.preventDefault();
+        focusIndex = (focusIndex - 1 + list.length) % list.length;
+        list[focusIndex].focus();
+      }else if(e.key === 'Enter'){
+        const el = document.activeElement;
+        if(el && el.classList.contains('app')) el.click();
+      }
+    });
+  </script>
 </body>
 </html>
