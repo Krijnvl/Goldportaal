@@ -28,7 +28,6 @@
       -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
     }
 
-    /* decoratieve glow */
     .glow{
       position:fixed; inset:auto -20% 60% auto; width:60vmax; height:60vmax;
       background: radial-gradient(closest-side, rgba(193,178,112,.14), transparent 60%);
@@ -40,29 +39,20 @@
       max-width:1080px; margin:42px auto; padding:0 20px;
     }
 
-    /* header */
-    .header{
-      display:flex; align-items:center; gap:16px; margin-bottom:22px;
-    }
+    .header{ display:flex; align-items:center; gap:16px; margin-bottom:22px; }
     .logo{
       width:64px; height:64px; border-radius:16px; display:grid; place-items:center;
       background:#000; border:1.5px solid var(--border); box-shadow: inset 0 1px 0 rgba(255,255,255,.06), var(--shadow);
       overflow:hidden;
     }
-    .logo img{
-      width:70%; height:70%; object-fit:contain;
-      filter: brightness(0) invert(1); transition: transform .35s ease, filter .35s ease;
-    }
+    .logo img{ width:70%; height:70%; object-fit:contain; filter: brightness(0) invert(1); transition: transform .35s ease, filter .35s ease; }
     .logo:hover img{ transform:scale(1.08); filter: brightness(1.2) invert(1); }
 
     .title h1{ font-size:1.55rem; letter-spacing:.2px; margin:0 0 4px 0; }
     .title p{ margin:0; color:var(--muted); font-size:.95rem }
 
-    /* search */
     .toolbar{ display:flex; gap:12px; align-items:center; margin:18px 0 8px }
-    .search{
-      position:relative; flex:1;
-    }
+    .search{ position:relative; flex:1; }
     .search input{
       width:100%; padding:12px 44px 12px 14px; border-radius:12px;
       background:#0f1217; color:var(--text); border:1px solid var(--border);
@@ -70,17 +60,9 @@
     }
     .search input::placeholder{ color:#6a7586 }
     .search input:focus{ border-color:var(--accent); box-shadow:0 0 0 3px rgba(193,178,112,.22) }
-    .search .icon{
-      position:absolute; right:10px; top:50%; transform:translateY(-50%); font-size:18px; color:#8d98a9;
-      pointer-events:none;
-    }
+    .search .icon{ position:absolute; right:10px; top:50%; transform:translateY(-50%); font-size:18px; color:#8d98a9; pointer-events:none; }
 
-    /* grid of apps */
-    .grid{
-      display:grid; gap:14px;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    }
-
+    .grid{ display:grid; gap:14px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
     .app{
       position:relative; isolation:isolate;
       background:linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
@@ -102,7 +84,6 @@
     .app__title{ font-weight:700; margin:2px 0 6px 0; letter-spacing:.2px; }
     .app__desc{ color:var(--muted); font-size:.92rem; margin:0 }
 
-    /* chip */
     .chip{
       display:inline-flex; align-items:center; gap:8px;
       padding:6px 10px; border-radius:999px; font-weight:600; font-size:.78rem;
@@ -110,14 +91,9 @@
       border:1px solid rgba(0,0,0,.25); box-shadow: inset 0 1px 0 rgba(255,255,255,.35);
     }
 
-    .footer{
-      margin-top:18px; color:#8f99aa; font-size:.9rem; text-align:center;
-    }
+    .footer{ margin-top:18px; color:#8f99aa; font-size:.9rem; text-align:center; }
 
-    /* reduce motion */
-    @media (prefers-reduced-motion: reduce){
-      .app, .logo img{ transition:none }
-    }
+    @media (prefers-reduced-motion: reduce){ .app, .logo img{ transition:none } }
   </style>
 </head>
 <body>
@@ -143,6 +119,8 @@
     </div>
 
     <section class="grid" id="apps" aria-label="Snelkoppelingen">
+
+
       <a class="app" href="https://golddry.netlify.app/" target="_blank" rel="noopener">
         <div class="app__title">Gold Dry Bestelling</div>
         <p class="app__desc">Plaats of beheer bestellingen voor Gold Dry.</p>
@@ -162,7 +140,7 @@
         <div class="app__title">Bezoek Formulier</div>
         <p class="app__desc">Log je winkelbezoeken – gestroomlijnd & mobielproof.</p>
       </a>
-
+      
       <a class="app" href="https://activiteitenform.netlify.app/" target="_blank" rel="noopener">
         <div class="app__title">Activiteiten Filialen</div>
         <p class="app__desc">Registreer promoties en lokale acties.</p>
@@ -172,6 +150,12 @@
         <div class="app__title">Promotie Materiaal</div>
         <p class="app__desc">Vraag POS-materiaal aan in een paar klikken.</p>
       </a>
+
+        <!-- NIEUW: Leads & IDs -->
+        <a class="app" href="https://polite-manatee-a2b807.netlify.app" target="_blank" rel="noopener">
+            <div class="app__title">Leads & ID’s aanmaken</div>
+            <p class="app__desc">Maak snel nieuwe Leads en Filiaal-ID’s aan (met automatische logging).</p>
+          </a>
 
       <a class="app" href="https://drive.google.com/file/d/1Hk-b3HAL07Jdt0H2vuN3ZZZ7HPBchdlz/view" target="_blank" rel="noopener">
         <div class="app__title">Gebruiksaanwijzing Appsheet</div>
